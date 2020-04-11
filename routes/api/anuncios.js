@@ -8,7 +8,7 @@ router.get('/', async (req, res, next) => {
     try {
       const name = req.query.name;
       const price = req.query.price;
-      const tags = req.query.tags;
+      const tags = req.query.tag;
       const sell = req.query.sell;
 
       const limit = parseInt(req.query.limit || 10);
@@ -51,15 +51,13 @@ router.get('/', async (req, res, next) => {
         }
       }
 
-      const docs = await anuncios.list(filter, limit, start, sort);
+      const docs = await anuncios.list(filter, limit, start, sort, tag);
       res.json(docs);
 
     } catch(err) {
       next(err);
     }
   });
-
-// Mostrando tags disponibles
 
 router.get('/tags', async (req, res, next) => {
   try {
